@@ -45,7 +45,7 @@ Contributions are welcome! Please fork this repository, make your changes, and s
 
 ## 📧 Contact
 
-For any queries or suggestions, feel free to reach out to me via [LinkedIn](https://www.linkedin.com) or email at `your-email@example.com`.
+For any queries or suggestions, feel free to reach out to me via <a href="https://www.linkedin.com/in/muhammadhaidertallal/"><img src="https://img.shields.io/badge/-LinkedIn-0072b1?&style=for-the-badge&logo=linkedin&logoColor=white" /></a> or email at `haidertallal786@gmail.com`.
 
 ---
 
