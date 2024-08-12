@@ -1,0 +1,71 @@
+import sys
+
+# Platform-specific imports for getch
+try:
+    if sys.platform.startswith('win'):
+        import msvcrt
+        def getch():
+            return msvcrt.getch().decode('utf-8')
+    else:
+        import tty
+        import termios
+        def getch():
+            fd = sys.stdin.fileno()
+            old_settings = termios.tcgetattr(fd)
+            try:
+                tty.setraw(sys.stdin.fileno())
+                ch = sys.stdin.read(1)
+            finally:
+                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+            return ch
+except ImportError:
+    raise ImportError("getch is not supported on this platform")
+
+
+def caesar_cipher(text, shift, mode='encrypt'):
+    shift = shift % 26
+    if mode == 'decrypt':
+        shift = -shift
+
+    def shift_char(c):
+        if c.isalpha():
+            start = ord('A') if c.isupper() else ord('a')
+            return chr((ord(c) - start + shift) % 26 + start)
+        return c
+
+    return ''.join(shift_char(c) for c in text)
+
+
+def main():
+    print("Welcome to the Caesar Cipher Program!")
+    print("Press 'e' to encrypt or 'd' to decrypt")
+
+    while True:
+        mode_char = getch().lower()
+        if mode_char == 'e':
+            mode = 'encrypt'
+            break
+        elif mode_char == 'd':
+            mode = 'decrypt'
+            break
+        else:
+            print("\nInvalid option. Please press 'e' for encrypt or 'd' for decrypt.")
+
+    text = input("\nEnter the text: ")
+
+    while True:
+        try:
+            shift = int(input("Enter the shift amount (0-25): "))
+            if 0 <= shift <= 25:
+                break
+            else:
+                print("Please enter a number between 0 and 25.")
+        except ValueError:
+            print("Invalid input. Please enter a valid integer between 0 and 25.")
+
+    result = caesar_cipher(text, shift, mode)
+    print(f"\nThe result is: {result}")
+
+
+if __name__ == "__main__":
+    main()
